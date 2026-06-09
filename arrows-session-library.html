@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinton Arrow Soccer · Coach Session Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c0392b;
+    --red-dark: #96281b;
+    --red-glow: rgba(192,57,43,0.15);
+    --black: #0d0d0d;
+    --off-black: #161616;
+    --mid: #222222;
+    --border: #2e2e2e;
+    --border-light: #3a3a3a;
+    --white: #f5f5f5;
+    --muted: #777;
+    --gold: #c8960c;
+    --gold-light: #e8b020;
+    --display: 'Bebas Neue', Impact, sans-serif;
+    --sans: 'Mulish', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    min-height: 100vh;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    background: var(--off-black);
+    border-bottom: 1px solid var(--border);
+    padding: 0 28px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--display);
+    font-size: 1.1rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .topbar-name {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    color: var(--white);
+  }
+  .topbar-name span {
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-family: var(--sans);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-left: 8px;
+  }
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-add {
+    background: var(--red);
+    color: #fff;
+    border: none;
+    padding: 7px 16px;
+    font-family: var(--display);
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s;
+  }
+  .btn-add:hover { background: var(--red-dark); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--off-black);
+    border-bottom: 3px solid var(--red);
+    padding: 40px 28px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: 'ARROWS';
+    position: absolute;
+    right: -20px;
+    bottom: -30px;
+    font-family: var(--display);
+    font-size: 11rem;
+    color: rgba(255,255,255,0.025);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--white);
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--red);
+  }
+  .hero-sub {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: right;
+  }
+  .stat .n {
+    font-family: var(--display);
+    font-size: 2.4rem;
+    color: var(--white);
+    line-height: 1;
+    display: block;
+  }
+  .stat .l {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    background: var(--off-black);
+    border-bottom: 1px solid var(--border);
+    padding: 0 28px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .filter-bar::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 12px 18px;
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .filter-btn:hover { color: var(--white); }
+  .filter-btn.active {
+    color: var(--red);
+    border-bottom-color: var(--red);
+  }
+
+  /* ── MAIN ── */
+  .page-body {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 20px 80px;
+  }
+
+  /* ── SEARCH ── */
+  .search-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    align-items: center;
+  }
+  .search-wrap {
+    flex: 1;
+    position: relative;
+  }
+  .search-wrap input {
+    width: 100%;
+    background: var(--mid);
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 9px 14px 9px 36px;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .search-wrap input::placeholder { color: var(--muted); }
+  .search-wrap input:focus { border-color: var(--border-light); }
+  .search-icon {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+  .sort-select {
+    background: var(--mid);
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 9px 12px;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+  }
+
+  /* ── SESSION GRID ── */
+  .sessions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+
+  /* ── SESSION CARD ── */
+  .session-card {
+    background: var(--off-black);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s, transform 0.15s;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+  }
+  .session-card:hover {
+    border-color: var(--border-light);
+    transform: translateY(-2px);
+  }
+  .session-card:hover .card-arrow { opacity: 1; }
+
+  .card-top {
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .card-num {
+    font-family: var(--display);
+    font-size: 2.6rem;
+    color: rgba(255,255,255,0.07);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .card-badge-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+  }
+  .card-type {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+  .type-tovo { background: rgba(192,57,43,0.2); color: #e07060; border: 1px solid rgba(192,57,43,0.3); }
+  .type-standard { background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid var(--border); }
+  .type-fitness { background: rgba(200,150,12,0.15); color: var(--gold-light); border: 1px solid rgba(200,150,12,0.3); }
+  .type-setpiece { background: rgba(36,113,163,0.2); color: #6faed4; border: 1px solid rgba(36,113,163,0.3); }
+
+  .card-body {
+    padding: 14px 16px;
+    flex: 1;
+  }
+  .card-title {
+    font-family: var(--display);
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 5px;
+  }
+  .card-theme {
+    font-size: 0.72rem;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .card-tag {
+    background: var(--mid);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .card-footer {
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-meta {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .card-arrow {
+    color: var(--red);
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .card-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: none;
+    gap: 4px;
+  }
+  .session-card:hover .card-actions { display: flex; }
+  .card-action-btn {
+    background: var(--mid);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: color 0.15s, background 0.15s;
+    z-index: 2;
+  }
+  .card-action-btn:hover { color: var(--white); background: var(--border); }
+  .card-action-btn.del:hover { color: #e07060; }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+  .empty-state .e-icon {
+    font-family: var(--display);
+    font-size: 4rem;
+    color: var(--border);
+    margin-bottom: 12px;
+  }
+  .empty-state p { font-size: 0.85rem; line-height: 1.6; }
+
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .modal {
+    background: var(--off-black);
+    border: 1px solid var(--border-light);
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .modal-head {
+    background: var(--red);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .modal-head h2 {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    letter-spacing: 0.06em;
+    color: #fff;
+  }
+  .modal-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 6px;
+  }
+  .modal-close:hover { color: #fff; }
+  .modal-body { padding: 22px 22px 26px; }
+  .form-row { margin-bottom: 16px; }
+  .form-row label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    width: 100%;
+    background: var(--mid);
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 9px 12px;
+    font-family: var(--sans);
+    font-size: 0.83rem;
+    outline: none;
+    transition: border-color 0.15s;
+    resize: vertical;
+  }
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus { border-color: var(--red); }
+  .form-row select option { background: var(--mid); }
+  .form-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-hint {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+  .modal-footer {
+    padding: 14px 22px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .btn-cancel {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 18px;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .btn-cancel:hover { color: var(--white); }
+  .btn-save {
+    background: var(--red);
+    border: none;
+    color: #fff;
+    padding: 8px 22px;
+    font-family: var(--display);
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-save:hover { background: var(--red-dark); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--mid);
+    border: 1px solid var(--border-light);
+    border-left: 3px solid var(--red);
+    color: var(--white);
+    padding: 10px 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    z-index: 300;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 520px) {
+    .topbar { padding: 0 16px; }
+    .hero { padding: 28px 16px 24px; }
+    .filter-bar { padding: 0 16px; }
+    .page-body { padding: 20px 14px 60px; }
+    .hero-stats { display: none; }
+    .form-two { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo-mark">→</div>
+    <div class="topbar-name">Clinton Arrow Soccer <span>Coach Library</span></div>
+  </div>
+  <div class="topbar-right">
+    <button class="btn-add" onclick="openModal()">+ Add Session</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Varsity · Junior High · Training Resources</div>
+      <h1>SESSION<br><em>LIBRARY.</em></h1>
+      <div class="hero-sub">Clinton Arrow Soccer · Coaching Staff</div>
+    </div>
+    <div class="hero-stats" id="heroStats">
+      <div class="stat"><span class="n" id="statTotal">0</span><span class="l">Sessions</span></div>
+      <div class="stat"><span class="n" id="statTovo">0</span><span class="l">TOVO</span></div>
+      <div class="stat"><span class="n" id="statWeeks">0</span><span class="l">Weeks Covered</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" data-filter="all">All Sessions</button>
+  <button class="filter-btn" data-filter="standard">Standard</button>
+  <button class="filter-btn" data-filter="tovo">TOVO</button>
+  <button class="filter-btn" data-filter="fitness">Fitness</button>
+  <button class="filter-btn" data-filter="setpiece">Set Pieces</button>
+  <button class="filter-btn" data-filter="jh">Junior High</button>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+  <div class="search-row">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search sessions by title, theme, or focus…" oninput="renderSessions()">
+    </div>
+    <select class="sort-select" id="sortSelect" onchange="renderSessions()">
+      <option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option>
+      <option value="alpha">A–Z</option>
+    </select>
+  </div>
+
+  <div class="section-label" id="sectionLabel">All Sessions</div>
+  <div class="sessions-grid" id="sessionsGrid"></div>
+</div>
+
+<!-- ADD SESSION MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">Add Session</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <label>Session Title *</label>
+        <input type="text" id="fTitle" placeholder="e.g. Session 3 — Pressing Triggers">
+      </div>
+      <div class="form-two">
+        <div class="form-row">
+          <label>Type</label>
+          <select id="fType">
+            <option value="standard">Standard</option>
+            <option value="tovo">TOVO</option>
+            <option value="fitness">Fitness</option>
+            <option value="setpiece">Set Pieces</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Level</label>
+          <select id="fLevel">
+            <option value="Varsity">Varsity</option>
+            <option value="JV">JV</option>
+            <option value="Junior High">Junior High</option>
+            <option value="All">All</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Theme / Focus</label>
+        <input type="text" id="fTheme" placeholder="e.g. Pressing Triggers · Transition Defense">
+      </div>
+      <div class="form-two">
+        <div class="form-row">
+          <label>Duration (min)</label>
+          <input type="number" id="fDuration" placeholder="75" min="15" max="180">
+        </div>
+        <div class="form-row">
+          <label>Players</label>
+          <input type="number" id="fPlayers" placeholder="20" min="4" max="30">
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Session File URL</label>
+        <input type="url" id="fUrl" placeholder="https://drive.google.com/…">
+        <div class="form-hint">Paste a Google Drive share link, or any URL where the session HTML is hosted.</div>
+      </div>
+      <div class="form-row">
+        <label>Coach's Notes (optional)</label>
+        <textarea id="fNotes" rows="3" placeholder="Any context for other coaches…"></textarea>
+      </div>
+      <input type="hidden" id="fEditId">
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" onclick="saveSession()">Save Session</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── Storage key
+  const STORE_KEY = 'arrows_sessions_v1';
+
+  // ── Seed data (Sessions 1 & 2 already built)
+  const SEED = [
+    {
+      id: 's1',
+      title: 'Session 1 — First Together',
+      type: 'standard',
+      level: 'Varsity',
+      theme: 'First Touch · Connection · Identity',
+      duration: 75,
+      players: 20,
+      url: '',
+      notes: 'Relationship-building session. Rondo arrival, two-line technical warmup, 6v4 possession, 7v7 SSG.',
+      created: Date.now() - 86400000 * 2
+    },
+    {
+      id: 's2',
+      title: 'Session 2 — Decision Speed',
+      type: 'tovo',
+      level: 'Varsity',
+      theme: 'Scanning · 8v2 Rondo · Heading · Pos. Play',
+      duration: 80,
+      players: 20,
+      url: '',
+      notes: 'Features Rondo 08 of 24 (Play What You See). Juggling warmup, heading technical block, 7v5 target possession, 9v9 SSG.',
+      created: Date.now() - 86400000
+    }
+  ];
+
+  // ── State
+  let sessions = [];
+  let activeFilter = 'all';
+  let editingId = null;
+
+  // ── Load from storage
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      sessions = raw ? JSON.parse(raw) : [...SEED];
+    } catch(e) {
+      sessions = [...SEED];
+    }
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify(sessions));
+    } catch(e) {}
+  }
+
+  // ── Render
+  function renderSessions() {
+    const grid = document.getElementById('sessionsGrid');
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const sort = document.getElementById('sortSelect').value;
+    const label = document.getElementById('sectionLabel');
+
+    let filtered = sessions.filter(s => {
+      const matchFilter = activeFilter === 'all'
+        ? true
+        : activeFilter === 'jh'
+        ? s.level === 'Junior High'
+        : s.type === activeFilter;
+      const matchSearch = !query ||
+        s.title.toLowerCase().includes(query) ||
+        (s.theme || '').toLowerCase().includes(query) ||
+        (s.notes || '').toLowerCase().includes(query);
+      return matchFilter && matchSearch;
+    });
+
+    filtered.sort((a, b) => {
+      if (sort === 'newest') return b.created - a.created;
+      if (sort === 'oldest') return a.created - b.created;
+      return a.title.localeCompare(b.title);
+    });
+
+    // Stats
+    document.getElementById('statTotal').textContent = sessions.length;
+    document.getElementById('statTovo').textContent = sessions.filter(s => s.type === 'tovo').length;
+    document.getElementById('statWeeks').textContent = Math.ceil(sessions.length / 3);
+
+    // Section label
+    const filterLabels = { all: 'All Sessions', standard: 'Standard Sessions', tovo: 'TOVO Sessions', fitness: 'Fitness Sessions', setpiece: 'Set Pieces', jh: 'Junior High' };
+    label.textContent = filterLabels[activeFilter] + (query ? ` · "${query}"` : '') + ` — ${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1">
+          <div class="e-icon">⚽</div>
+          <p>No sessions found.<br>Add your first session or adjust the filter.</p>
+        </div>`;
+      return;
+    }
+
+    const typeLabels = { standard: 'Standard', tovo: 'TOVO', fitness: 'Fitness', setpiece: 'Set Pieces' };
+
+    grid.innerHTML = filtered.map(s => {
+      const tags = [
+        s.level,
+        s.duration ? s.duration + ' min' : null,
+        s.players ? s.players + ' players' : null
+      ].filter(Boolean);
+
+      const themeTags = s.theme ? s.theme.split('·').map(t => t.trim()).filter(Boolean) : [];
+
+      return `
+        <div class="session-card" onclick="openSession('${s.id}')">
+          <div class="card-actions" onclick="event.stopPropagation()">
+            <button class="card-action-btn" title="Edit" onclick="editSession('${s.id}')">✎</button>
+            <button class="card-action-btn del" title="Delete" onclick="deleteSession('${s.id}')">✕</button>
+          </div>
+          <div class="card-top">
+            <div class="card-num">${String(sessions.indexOf(s) + 1).padStart(2,'0')}</div>
+            <div class="card-badge-wrap">
+              <span class="card-type type-${s.type}">${typeLabels[s.type] || s.type}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-title">${s.title}</div>
+            ${s.theme ? `<div class="card-theme">${s.theme}</div>` : ''}
+            <div class="card-tags">
+              ${tags.map(t => `<span class="card-tag">${t}</span>`).join('')}
+              ${themeTags.slice(0,3).map(t => `<span class="card-tag" style="color:var(--white);opacity:0.5">${t}</span>`).join('')}
+            </div>
+            ${s.notes ? `<div style="font-size:0.75rem;color:var(--muted);margin-top:10px;line-height:1.5;font-style:italic;">${s.notes.slice(0,100)}${s.notes.length > 100 ? '…' : ''}</div>` : ''}
+          </div>
+          <div class="card-footer">
+            <div class="card-meta">${new Date(s.created).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'})}</div>
+            <div class="card-arrow">${s.url ? '→ Open' : '→'}</div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // ── Open session
+  function openSession(id) {
+    const s = sessions.find(x => x.id === id);
+    if (!s) return;
+    if (s.url) {
+      window.open(s.url, '_blank');
+    } else {
+      showToast('No file URL attached yet — edit the session to add one.');
+    }
+  }
+
+  // ── Modal
+  function openModal() {
+    editingId = null;
+    document.getElementById('modalTitle').textContent = 'Add Session';
+    document.getElementById('fTitle').value = '';
+    document.getElementById('fType').value = 'standard';
+    document.getElementById('fLevel').value = 'Varsity';
+    document.getElementById('fTheme').value = '';
+    document.getElementById('fDuration').value = '';
+    document.getElementById('fPlayers').value = '';
+    document.getElementById('fUrl').value = '';
+    document.getElementById('fNotes').value = '';
+    document.getElementById('fEditId').value = '';
+    document.getElementById('modalOverlay').classList.add('open');
+    setTimeout(() => document.getElementById('fTitle').focus(), 100);
+  }
+
+  function editSession(id) {
+    const s = sessions.find(x => x.id === id);
+    if (!s) return;
+    editingId = id;
+    document.getElementById('modalTitle').textContent = 'Edit Session';
+    document.getElementById('fTitle').value = s.title;
+    document.getElementById('fType').value = s.type;
+    document.getElementById('fLevel').value = s.level;
+    document.getElementById('fTheme').value = s.theme || '';
+    document.getElementById('fDuration').value = s.duration || '';
+    document.getElementById('fPlayers').value = s.players || '';
+    document.getElementById('fUrl').value = s.url || '';
+    document.getElementById('fNotes').value = s.notes || '';
+    document.getElementById('fEditId').value = id;
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    editingId = null;
+  }
+
+  function closeModalOnBg(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  function saveSession() {
+    const title = document.getElementById('fTitle').value.trim();
+    if (!title) {
+      document.getElementById('fTitle').style.borderColor = 'var(--red)';
+      document.getElementById('fTitle').focus();
+      return;
+    }
+    document.getElementById('fTitle').style.borderColor = '';
+
+    const data = {
+      title,
+      type: document.getElementById('fType').value,
+      level: document.getElementById('fLevel').value,
+      theme: document.getElementById('fTheme').value.trim(),
+      duration: parseInt(document.getElementById('fDuration').value) || null,
+      players: parseInt(document.getElementById('fPlayers').value) || null,
+      url: document.getElementById('fUrl').value.trim(),
+      notes: document.getElementById('fNotes').value.trim(),
+    };
+
+    if (editingId) {
+      const idx = sessions.findIndex(x => x.id === editingId);
+      if (idx !== -1) {
+        sessions[idx] = { ...sessions[idx], ...data };
+      }
+      showToast('Session updated.');
+    } else {
+      sessions.unshift({ id: 's' + Date.now(), created: Date.now(), ...data });
+      showToast('Session added to library.');
+    }
+
+    save();
+    renderSessions();
+    closeModal();
+  }
+
+  function deleteSession(id) {
+    if (!confirm('Remove this session from the library?')) return;
+    sessions = sessions.filter(x => x.id !== id);
+    save();
+    renderSessions();
+    showToast('Session removed.');
+  }
+
+  // ── Filter buttons
+  document.getElementById('filterBar').addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    renderSessions();
+  });
+
+  // ── Toast
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // ── Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ── Init
+  load();
+  renderSessions();
+</script>
+</body>
+</html>

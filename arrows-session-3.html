@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinton Arrow Soccer · Session 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c0392b;
+    --red-dim: rgba(192,57,43,0.12);
+    --black: #111;
+    --off: #181818;
+    --card: #1e1e1e;
+    --card2: #242424;
+    --rule: #2c2c2c;
+    --rule2: #363636;
+    --white: #f0f0f0;
+    --muted: #777;
+    --gold: #c8960c;
+    --blue-team: #2471a3;
+    --white-team: #d0d0d0;
+    --orange-team: #d4620a;
+    --pitch: #2a6636;
+    --pitch-mid: #245c2e;
+    --cond: 'Barlow Condensed', sans-serif;
+    --body: 'Barlow', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--black); color: var(--white); font-family: var(--body); min-height: 100vh; }
+
+  /* ══ HEADER ══ */
+  .hd {
+    background: var(--off);
+    border-bottom: 3px solid var(--red);
+    padding: 0;
+  }
+  .hd-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: stretch;
+  }
+  .hd-left {
+    padding: 28px 32px 24px;
+    border-right: 1px solid var(--rule);
+  }
+  .hd-eyebrow {
+    font-family: var(--cond);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+  .hd-title {
+    font-family: var(--cond);
+    font-weight: 900;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 0.88;
+    letter-spacing: 0.01em;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+  .hd-title .dim { color: rgba(255,255,255,0.18); }
+  .hd-meta {
+    display: flex;
+    gap: 18px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .hd-meta-item {
+    font-family: var(--cond);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .hd-meta-item strong { color: var(--white); }
+  .hd-right {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    min-width: 120px;
+  }
+  .session-n {
+    font-family: var(--cond);
+    font-weight: 900;
+    font-size: 5rem;
+    color: var(--red);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .tovo-pill {
+    background: var(--red);
+    color: #fff;
+    font-family: var(--cond);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    padding: 4px 10px;
+    text-transform: uppercase;
+  }
+
+  /* ══ BUILDS-ON BAR ══ */
+  .builds-bar {
+    background: var(--off);
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 0;
+  }
+  .builds-bar-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .builds-lbl {
+    font-family: var(--cond);
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+  .builds-text {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.55;
+  }
+  .builds-text strong { color: var(--white); }
+
+  /* ══ TIMELINE ══ */
+  .tl-wrap {
+    max-width: 980px;
+    margin: 28px auto 0;
+    padding: 0 24px;
+  }
+  .tl {
+    display: flex;
+    height: 38px;
+    border: 1px solid var(--rule);
+    overflow: hidden;
+  }
+  .tl-s {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    font-family: var(--cond);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    border-right: 1px solid rgba(0,0,0,0.3);
+    text-align: center;
+    line-height: 1.2;
+  }
+  .tl-s:last-child { border-right: none; }
+  .tl-s .t { font-size: 0.82rem; color: #fff; font-weight: 800; }
+  .tl-s:nth-child(1) { background: #1a1a1a; flex: 10; }
+  .tl-s:nth-child(2) { background: #7b1a12; flex: 15; }
+  .tl-s:nth-child(3) { background: #96211a; flex: 25; }
+  .tl-s:nth-child(4) { background: #b02a1f; flex: 20; }
+  .tl-s:nth-child(5) { background: #c0392b; flex: 20; }
+  .tl-note {
+    font-family: var(--cond);
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  /* ══ MAIN ══ */
+  main {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px 72px;
+  }
+
+  /* ══ PHASE CARD ══ */
+  .phase {
+    background: var(--off);
+    border: 1px solid var(--rule);
+    margin-bottom: 18px;
+  }
+  .ph-head {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    border-bottom: 1px solid var(--rule);
+    align-items: stretch;
+  }
+  .ph-n {
+    background: var(--red);
+    font-family: var(--cond);
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ph-title {
+    padding: 12px 16px;
+  }
+  .ph-title h3 {
+    font-family: var(--cond);
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1.1;
+  }
+  .ph-title .sub {
+    font-family: var(--cond);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  .ph-dur {
+    background: var(--card);
+    border-left: 1px solid var(--rule);
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    font-family: var(--cond);
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+  .ph-body { padding: 18px 20px 22px; }
+
+  /* ══ SPECS ROW ══ */
+  .specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .spec {
+    background: var(--card2);
+    border: 1px solid var(--rule2);
+    padding: 4px 10px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .spec .lbl { color: var(--muted); font-weight: 400; }
+
+  .desc {
+    font-size: 0.83rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+
+  /* ══ TWO-COL ══ */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .box {
+    padding: 13px 15px;
+  }
+  .bx-coach {
+    background: var(--card);
+    border: 1px solid var(--rule);
+  }
+  .bx-prog {
+    background: var(--black);
+    border: 1px solid var(--rule2);
+  }
+  .bx-label {
+    font-family: var(--cond);
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .bx-prog .bx-label { color: var(--red); }
+  .box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .box li {
+    font-size: 0.79rem;
+    color: rgba(255,255,255,0.62);
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+  .bx-coach li::before { content: '›'; position: absolute; left: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.3; }
+  .bx-prog li::before { content: '+'; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+
+  /* ══ PITCH WRAP ══ */
+  .pw {
+    background: var(--pitch);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    margin-top: 12px;
+  }
+  .pw-cap {
+    background: rgba(0,0,0,0.55);
+    padding: 5px 12px;
+    font-family: var(--cond);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  svg.pitch { display: block; width: 100%; }
+
+  /* ══ TOVO CALLOUT ══ */
+  .tovo-call {
+    background: var(--black);
+    border: 1px solid var(--rule2);
+    border-left: 3px solid var(--red);
+    padding: 12px 16px;
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .tc-lbl {
+    font-family: var(--cond);
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    color: var(--red);
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding-top: 1px;
+  }
+  .tovo-call p {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.58);
+    line-height: 1.58;
+  }
+  .tovo-call strong { color: var(--white); }
+
+  /* ══ TEAM LEGEND ══ */
+  .team-legend {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .tl-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--cond);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tl-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    flex-shrink: 0;
+  }
+
+  /* ══ PHASE DIAGRAM (wide bi-rondal) ══ */
+  .birondal-diagram {
+    background: var(--pitch);
+    border: 1px solid var(--rule);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .bd-cap {
+    background: rgba(0,0,0,0.6);
+    padding: 7px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .bd-cap-title {
+    font-family: var(--cond);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .bd-cap-sub {
+    font-family: var(--cond);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ══ GAME PHASES TABLE ══ */
+  .phases-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+  }
+  .phases-table th {
+    background: var(--card2);
+    font-family: var(--cond);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--rule2);
+  }
+  .phases-table td {
+    padding: 9px 12px;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.65);
+    border-bottom: 1px solid var(--rule);
+    line-height: 1.45;
+    vertical-align: top;
+  }
+  .phases-table tr:last-child td { border-bottom: none; }
+  .phase-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    font-family: var(--cond);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .pill-atk { background: rgba(34,160,60,0.2); color: #50c870; border: 1px solid rgba(34,160,60,0.3); }
+  .pill-def { background: rgba(192,57,43,0.2); color: #e07060; border: 1px solid rgba(192,57,43,0.3); }
+  .pill-trans-atk { background: rgba(200,150,12,0.15); color: var(--gold); border: 1px solid rgba(200,150,12,0.3); }
+  .pill-trans-def { background: rgba(100,100,200,0.15); color: #88aadd; border: 1px solid rgba(100,100,200,0.3); }
+
+  /* ══ EQUIPMENT ══ */
+  .equip {
+    background: var(--off);
+    border: 1px solid var(--rule);
+    padding: 14px 20px;
+    margin-top: 28px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .eq-lbl {
+    font-family: var(--cond);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    padding-top: 3px;
+  }
+  .eq-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .eq-tag {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    padding: 4px 10px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ══ COACH NOTE ══ */
+  .coach-note {
+    background: var(--off);
+    border-left: 3px solid var(--red);
+    padding: 14px 18px;
+    margin-top: 16px;
+  }
+  .cn-lbl {
+    font-family: var(--cond);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+  .coach-note p { font-size: 0.82rem; color: rgba(255,255,255,0.58); line-height: 1.65; }
+  .coach-note strong { color: var(--white); }
+
+  @media (max-width: 580px) {
+    .hd-inner { grid-template-columns: 1fr; }
+    .hd-right { flex-direction: row; align-items: center; padding: 16px 20px; border-top: 1px solid var(--rule); }
+    .hd-left { padding: 22px 20px 18px; }
+    .builds-bar-inner { padding: 0 20px; }
+    .tl-wrap { padding: 0 16px; }
+    main { padding: 0 14px 56px; }
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hd">
+  <div class="hd-inner">
+    <div class="hd-left">
+      <div class="hd-eyebrow">Clinton Arrow Soccer · TOVO Session 3</div>
+      <div class="hd-title">
+        ALL FOUR<br>
+        <span class="dim">///</span> PHASES.
+      </div>
+      <div class="hd-meta">
+        <div class="hd-meta-item">Players <strong>20</strong></div>
+        <div class="hd-meta-item">Duration <strong>85 min</strong></div>
+        <div class="hd-meta-item">Format <strong>3 Teams · Transfer Rondo · 9v9</strong></div>
+        <div class="hd-meta-item">Theme <strong>Bi-Rondal Transfer Game</strong></div>
+      </div>
+    </div>
+    <div class="hd-right">
+      <div class="session-n">03</div>
+      <div class="tovo-pill">TOVO</div>
+    </div>
+  </div>
+</div>
+
+<!-- BUILDS-ON -->
+<div class="builds-bar">
+  <div class="builds-bar-inner">
+    <div class="builds-lbl">↑ Builds On</div>
+    <div class="builds-text">
+      <strong>Session 2:</strong> 8v2 Play What You See rondo, juggling warmup, heading technical, 7v5 target possession, 9v9 SSG.
+      Today's rondo is a direct upgrade — three teams, two live zones, and all four phases of the game in one exercise. The scanning and 1st-touch habits from Sessions 1 &amp; 2 now must survive a live transition trigger.
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="tl-wrap">
+  <div class="tl">
+    <div class="tl-s"><span class="t">10'</span><span>Juggling</span></div>
+    <div class="tl-s"><span class="t">15'</span><span>Rondo Intro</span></div>
+    <div class="tl-s"><span class="t">25'</span><span>Bi-Rondal</span></div>
+    <div class="tl-s"><span class="t">15'</span><span>Phase of Play</span></div>
+    <div class="tl-s"><span class="t">20'</span><span>9v9 Game</span></div>
+  </div>
+  <p class="tl-note">85 min · rondo builds from simple to complex · all four TOVO game phases active by Phase 3</p>
+</div>
+
+<main>
+
+  <!-- ══ PHASE 1: JUGGLING ══ -->
+  <div class="phase">
+    <div class="ph-head">
+      <div class="ph-n">1</div>
+      <div class="ph-title">
+        <h3>Juggling Warmup</h3>
+        <div class="sub">Ball Mastery · Touch Sensitivity · Activation</div>
+      </div>
+      <div class="ph-dur">10 MIN</div>
+    </div>
+    <div class="ph-body">
+      <div class="specs">
+        <div class="spec"><span class="lbl">Format: </span>Individual → Pairs → Groups of 5</div>
+        <div class="spec"><span class="lbl">Balls: </span>1 per player</div>
+        <div class="spec"><span class="lbl">Space: </span>Spread across half field</div>
+      </div>
+      <p class="desc">Carry the juggling warmup from Session 2 — players know the format. Three stages: individual (personal best), pairs (volley back-and-forth without touching the ground), then groups of 5 keeping the ball alive. Today's addition: in the group stage, each player must call a teammate's name before playing to them. Keeps communication sharp from the first minute.</p>
+      <div class="two-col">
+        <div class="box bx-coach">
+          <div class="bx-label">Coaching Points</div>
+          <ul>
+            <li>Locked ankle, relaxed leg — let the ball die on contact</li>
+            <li>Head up in the group stage — know your next option before you play</li>
+            <li>Call the name <em>before</em> the ball leaves your foot</li>
+          </ul>
+        </div>
+        <div class="box bx-prog">
+          <div class="bx-label">Progression</div>
+          <ul>
+            <li>Groups of 5: one player is "it" — if the ball hits the ground on their touch, they go in the middle and must win a touch before rejoining</li>
+            <li>Record group best — challenge it in Session 4</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PHASE 2: RONDO INTRO ══ -->
+  <div class="phase">
+    <div class="ph-head">
+      <div class="ph-n">2</div>
+      <div class="ph-title">
+        <h3>Rondo Bridge — 5v2 / 6v2</h3>
+        <div class="sub">Press Resistance · Body Shape · Cognitive Prep</div>
+      </div>
+      <div class="ph-dur">15 MIN</div>
+    </div>
+    <div class="ph-body">
+      <div class="specs">
+        <div class="spec"><span class="lbl">Groups: </span>2 groups of 7 (+ 6 waiting)</div>
+        <div class="spec"><span class="lbl">Format: </span>5v2 → 6v2</div>
+        <div class="spec"><span class="lbl">Space: </span>12×12 yd grids</div>
+        <div class="spec"><span class="lbl">Touch: </span>2 touch max</div>
+        <div class="spec"><span class="lbl">Rotate: </span>Defender swaps on 5 losses or 4 min</div>
+      </div>
+      <p class="desc">A bridge rondo before the main exercise. Players are split into the three-team structure they'll use in Phase 3 — teams of 5, 5, and 5 rotating through two grids (one team rests). This is the last "simple" rondo they'll do before the transfer game demands they press and transition simultaneously. Use it to dial in body shape and scanning habits.</p>
+
+      <div class="pw">
+        <div class="pw-cap">Diagram · 5v2 Bridge Rondo (one of two grids running)</div>
+        <svg class="pitch" viewBox="0 0 280 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="280" height="180" fill="#2a6636"/>
+          <rect x="30" y="20" width="220" height="140" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <!-- Keeping (5, white circles) -->
+          <circle cx="140" cy="28" r="9" fill="#d0d0d0" stroke="#fff" stroke-width="1.5"/>
+          <text x="140" y="32" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">1</text>
+          <circle cx="38" cy="90" r="9" fill="#d0d0d0" stroke="#fff" stroke-width="1.5"/>
+          <text x="38" y="94" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">2</text>
+          <circle cx="242" cy="90" r="9" fill="#d0d0d0" stroke="#fff" stroke-width="1.5"/>
+          <text x="242" y="94" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">3</text>
+          <circle cx="60" cy="155" r="9" fill="#d0d0d0" stroke="#fff" stroke-width="1.5"/>
+          <text x="60" y="159" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">4</text>
+          <circle cx="220" cy="155" r="9" fill="#d0d0d0" stroke="#fff" stroke-width="1.5"/>
+          <text x="220" y="159" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">5</text>
+          <!-- Defenders (2, red) -->
+          <circle cx="115" cy="95" r="9" fill="#c0392b" stroke="#fff" stroke-width="1.5"/>
+          <text x="115" y="99" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">D</text>
+          <circle cx="160" cy="80" r="9" fill="#c0392b" stroke="#fff" stroke-width="1.5"/>
+          <text x="160" y="84" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">D</text>
+          <!-- Ball -->
+          <circle cx="140" cy="28" r="4" fill="#f5c518" stroke="#ccc" stroke-width="1"/>
+          <defs><marker id="b1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0 0,6 3,0 6" fill="rgba(255,255,255,0.6)"/></marker></defs>
+          <line x1="140" y1="37" x2="47" y2="84" stroke="rgba(255,255,255,0.45)" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#b1)"/>
+          <!-- legend -->
+          <circle cx="30" cy="172" r="5" fill="#d0d0d0" stroke="#fff" stroke-width="1"/>
+          <text x="39" y="176" fill="rgba(255,255,255,0.6)" font-size="8" font-family="sans-serif">Keeping (5)</text>
+          <circle cx="115" cy="172" r="5" fill="#c0392b" stroke="#fff" stroke-width="1"/>
+          <text x="124" y="176" fill="rgba(255,255,255,0.6)" font-size="8" font-family="sans-serif">Pressing (2)</text>
+        </svg>
+      </div>
+
+      <div class="tovo-call">
+        <div class="tc-lbl">TOVO</div>
+        <p>Before moving to the transfer game, players need to understand the three-team structure. Use the last 2 minutes of this phase to explain Phase 3 setup — walk the teams to their zones, show the middle zone, and demonstrate one transfer sequence before the clock starts.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PHASE 3: BI-RONDAL ══ -->
+  <div class="phase">
+    <div class="ph-head">
+      <div class="ph-n">3</div>
+      <div class="ph-title">
+        <h3>Bi-Rondal 4v4+4 — Transfer Game</h3>
+        <div class="sub">All Four Phases · Counter Press · Zone Transfer</div>
+      </div>
+      <div class="ph-dur">25 MIN</div>
+    </div>
+    <div class="ph-body">
+
+      <!-- TEAM LEGEND -->
+      <div class="team-legend">
+        <div class="tl-item"><div class="tl-dot" style="background:#d0d0d0"></div><span style="color:#d0d0d0">White — In Possession (Zone A)</span></div>
+        <div class="tl-item"><div class="tl-dot" style="background:#d4620a"></div><span style="color:#d4620a">Orange — In Possession (Zone B)</span></div>
+        <div class="tl-item"><div class="tl-dot" style="background:#2471a3"></div><span style="color:#88aadd">Blue — Pressing Team</span></div>
+      </div>
+
+      <!-- MAIN DIAGRAM -->
+      <div class="birondal-diagram">
+        <div class="bd-cap">
+          <div class="bd-cap-title">Rondo 3 · Bi-Rondal 4v4+4 Transfer Game</div>
+          <div class="bd-cap-sub">2 zones of 10×15 m · 2×15 m middle zone · 20 players = 4 per team × 5 teams rotated in groups</div>
+        </div>
+        <!--
+          Layout (viewBox 540 × 230):
+          Zone A:    x=10  w=140  (10m)
+          Middle:    x=150 w=240  (15m — wider passage zone)
+          Zone B:    x=390 w=140  (10m)
+          All zones: y=25 h=180
+        -->
+        <svg class="pitch" viewBox="0 0 540 230" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arr"      markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="rgba(255,255,255,0.75)"/></marker>
+            <marker id="arr-gold" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#f5c518"/></marker>
+            <marker id="arr-red"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#e07060"/></marker>
+          </defs>
+
+          <!-- Background -->
+          <rect width="540" height="230" fill="#2a6636"/>
+
+          <!-- ── ZONE A (White keeps) ── -->
+          <rect x="10" y="25" width="140" height="180" fill="rgba(210,210,210,0.05)" stroke="rgba(210,210,210,0.55)" stroke-width="1.5" stroke-dasharray="6,4"/>
+          <text x="80" y="17" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="rgba(210,210,210,0.5)" letter-spacing="2">ZONE A</text>
+          <text x="80" y="218" text-anchor="middle" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">10 m</text>
+
+          <!-- ── MIDDLE ZONE ── -->
+          <rect x="150" y="25" width="240" height="180" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="270" y="17" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="rgba(255,255,255,0.25)" letter-spacing="2">MIDDLE</text>
+          <text x="270" y="218" text-anchor="middle" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">15 m</text>
+
+          <!-- ── ZONE B (Orange keeps) ── -->
+          <rect x="390" y="25" width="140" height="180" fill="rgba(212,98,10,0.06)" stroke="rgba(212,98,10,0.55)" stroke-width="1.5" stroke-dasharray="6,4"/>
+          <text x="460" y="17" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="rgba(212,98,10,0.6)" letter-spacing="2">ZONE B</text>
+          <text x="460" y="218" text-anchor="middle" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">10 m</text>
+
+          <!-- ── WHITE TEAM — 4 players inside Zone A ── -->
+          <circle cx="35"  cy="55"  r="11" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="35"  y="59"  text-anchor="middle" fill="#111" font-size="9" font-weight="bold" font-family="sans-serif">W</text>
+          <circle cx="130" cy="50"  r="11" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="130" y="54"  text-anchor="middle" fill="#111" font-size="9" font-weight="bold" font-family="sans-serif">W</text>
+          <circle cx="35"  cy="170" r="11" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="35"  y="174" text-anchor="middle" fill="#111" font-size="9" font-weight="bold" font-family="sans-serif">W</text>
+          <circle cx="130" cy="175" r="11" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="130" y="179" text-anchor="middle" fill="#111" font-size="9" font-weight="bold" font-family="sans-serif">W</text>
+
+          <!-- Ball with White -->
+          <circle cx="82" cy="112" r="6" fill="#f5c518" stroke="#ccc" stroke-width="1.2"/>
+
+          <!-- ── BLUE TEAM — 2 pressing in Zone A, 2 blocking in Middle ── -->
+          <circle cx="72"  cy="78"  r="11" fill="#2471a3" stroke="#fff" stroke-width="1.5"/>
+          <text x="72"  y="82"  text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">B</text>
+          <circle cx="95"  cy="148" r="11" fill="#2471a3" stroke="#fff" stroke-width="1.5"/>
+          <text x="95"  y="152" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">B</text>
+          <!-- 2 Blue in middle blocking transfer lane -->
+          <circle cx="195" cy="90"  r="11" fill="#2471a3" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+          <text x="195" y="94"  text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">B</text>
+          <circle cx="340" cy="145" r="11" fill="#2471a3" stroke="#fff" stroke-width="1.5" opacity="0.8"/>
+          <text x="340" y="149" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">B</text>
+
+          <!-- ── ORANGE TEAM — 4 players inside Zone B ── -->
+          <circle cx="415" cy="55"  r="11" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="415" cy="59"  text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">O</text>
+          <text x="415" y="59"  text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">O</text>
+          <circle cx="510" cy="50"  r="11" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="510" y="54"  text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">O</text>
+          <circle cx="415" cy="170" r="11" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="415" y="174" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">O</text>
+          <circle cx="510" cy="175" r="11" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="510" y="179" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">O</text>
+
+          <!-- ── White pass lines in Zone A ── -->
+          <line x1="45" y1="58" x2="118" y2="52" stroke="rgba(255,255,255,0.45)" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+          <line x1="130" y1="61" x2="130" y2="163" stroke="rgba(255,255,255,0.35)" stroke-width="1"   stroke-dasharray="3,3" marker-end="url(#arr)"/>
+
+          <!-- ── TRANSFER arrow: Zone A → Zone B through middle ── -->
+          <path d="M 147 112 C 200 65, 340 65, 388 112" fill="none" stroke="#f5c518" stroke-width="2.2" stroke-dasharray="8,5" marker-end="url(#arr-gold)"/>
+          <text x="268" y="58" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#f5c518">TRANSFER</text>
+
+          <!-- ── Counter-press: Blue middle players close on transfer ── -->
+          <path d="M 206 102 C 260 80, 330 90, 358 108" fill="none" stroke="#e07060" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+          <text x="282" y="130" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#e07060">counter-press</text>
+
+          <!-- ── Legend ── -->
+          <circle cx="15"  cy="224" r="5" fill="#d8d8d8" stroke="#fff" stroke-width="1"/>
+          <text x="24"  y="228" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">White (keeping)</text>
+          <circle cx="140" cy="224" r="5" fill="#2471a3" stroke="#fff" stroke-width="1"/>
+          <text x="149" y="228" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">Blue (pressing)</text>
+          <circle cx="265" cy="224" r="5" fill="#d4620a" stroke="#fff" stroke-width="1"/>
+          <text x="274" y="228" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">Orange (keeping)</text>
+          <circle cx="400" cy="224" r="5" fill="#f5c518" stroke="#ccc" stroke-width="1"/>
+          <text x="409" y="228" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">Ball</text>
+        </svg>
+      </div>
+
+      <div class="specs">
+        <div class="spec"><span class="lbl">Zones: </span>2 × 10×15 m end zones + 2×15 m middle</div>
+        <div class="spec"><span class="lbl">Teams: </span>3 groups of 5 (rotated as 4+1 sub)</div>
+        <div class="spec"><span class="lbl">Touch: </span>Free → 2 touch in second half</div>
+        <div class="spec"><span class="lbl">Duration: </span>3 × 7 min rounds</div>
+        <div class="spec"><span class="lbl">Rotation: </span>Blue presses for one full round then rotates</div>
+      </div>
+
+      <p class="desc"><strong style="color:var(--white)">Structure:</strong> Three teams of 5 (run as 4+1 rotating sub). White keeps possession in Zone A. Orange keeps possession in Zone B. Blue presses — two players in Zone A creating a 4v2, two in the middle zone blocking the transfer lane.</p>
+      <p class="desc"><strong style="color:var(--white)">The Transfer:</strong> White must combine in Zone A before switching the ball through or over the middle zone to Orange in Zone B. When the transfer is played, White's 4 move into the middle zone. Blue's 2 from Zone A sprint to intercept in the middle or press Orange in Zone B. Orange must receive and keep.</p>
+      <p class="desc"><strong style="color:var(--white)">Turnover Rule:</strong> If Blue wins possession anywhere — in either zone or the middle — the team that lost possession becomes the new pressing team. Blue joins the team in possession. This is the counter-press trigger. Reward: Blue earns a point for each turnover; possession teams earn a point for every successful transfer.</p>
+
+      <!-- FOUR PHASES TABLE -->
+      <table class="phases-table">
+        <thead>
+          <tr>
+            <th>Game Phase</th>
+            <th>Which Team</th>
+            <th>What They're Solving</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="phase-pill pill-atk">Organised Attack</span></td>
+            <td style="color:var(--white-team)">White / Orange</td>
+            <td>Build possession in zone, find the transfer moment, receive and keep in new zone</td>
+          </tr>
+          <tr>
+            <td><span class="phase-pill pill-trans-atk">Transition to Attack</span></td>
+            <td style="color:#88aadd">Blue (on winning ball)</td>
+            <td>Win possession → immediately join possession team → flip to attacking mindset in 1 second</td>
+          </tr>
+          <tr>
+            <td><span class="phase-pill pill-def">Organised Defence</span></td>
+            <td style="color:#88aadd">Blue</td>
+            <td>4v2 press in zone, 2 middle players block transfer lane, work as coordinated unit</td>
+          </tr>
+          <tr>
+            <td><span class="phase-pill pill-trans-def">Transition to Defence</span></td>
+            <td style="color:var(--white-team)">White / Orange (on losing ball)</td>
+            <td>Losing team immediately becomes new pressing team — reorganise and press within 3 seconds</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tovo-call">
+        <div class="tc-lbl">TOVO</div>
+        <p>This is Todd Beane's "training game" — not a drill. <strong>All four phases of the game exist simultaneously in one exercise.</strong> The transfer moment is the session's core metaphor for field-switching; the counter-press trigger teaches players that the 3 seconds after losing possession are the most dangerous in football. Cruyff: <em>"Football is a game of transitions."</em></p>
+      </div>
+
+      <div class="two-col">
+        <div class="box bx-coach">
+          <div class="bx-label">Coaching Points — Possession Teams</div>
+          <ul>
+            <li>Create triangles within the zone — don't let the 4v2 become 2v2 in one corner</li>
+            <li>Transfer decision: play it when the middle is open, not under desperation</li>
+            <li>Receiving team: one player steps to meet the transfer, others spread immediately</li>
+            <li>Use the 1st touch to set up the next pass — never receive and stand</li>
+            <li>Talk through the middle zone: call when the transfer is on</li>
+          </ul>
+        </div>
+        <div class="box bx-prog">
+          <div class="bx-label">Coaching Points — Blue Press</div>
+          <ul>
+            <li>2 in zone: one hunts, one covers — never both chase the ball</li>
+            <li>Middle 2: split and close the transfer lane — don't sit central together</li>
+            <li>On turnover: sprint to join possession — transition is instant, not after a breath</li>
+            <li>Counter-press window: 3 seconds. After that, reorganise and defend the shape</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top:10px;">
+        <div class="box bx-coach">
+          <div class="bx-label">Progressions</div>
+          <ul>
+            <li>Reduce to 2-touch in both zones</li>
+            <li>Middle zone: possession team may not pass through — must dribble or loft</li>
+            <li>2-point transfer: if receiving team strings 3 passes within 5 seconds of receiving, it counts double</li>
+          </ul>
+        </div>
+        <div class="box bx-prog">
+          <div class="bx-label">20-Player Management</div>
+          <ul>
+            <li>3 teams of 5: each team plays 4 on the field, 1 rolls on as sub every 90 sec</li>
+            <li>Round rotation: after 7 min, the pressing team exits to rest, the resting team enters as the new press</li>
+            <li>Keep score across all rounds — team with most points at end wins</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ PHASE 4: PHASE OF PLAY ══ -->
+  <div class="phase">
+    <div class="ph-head">
+      <div class="ph-n">4</div>
+      <div class="ph-title">
+        <h3>Phase of Play — Build &amp; Transfer</h3>
+        <div class="sub">Shape · Field-Switch · Transition Trigger</div>
+      </div>
+      <div class="ph-dur">15 MIN</div>
+    </div>
+    <div class="ph-body">
+      <div class="specs">
+        <div class="spec"><span class="lbl">Format: </span>8v8 on ¾ field</div>
+        <div class="spec"><span class="lbl">Field: </span>~65×55 yd</div>
+        <div class="spec"><span class="lbl">Goals: </span>Full-size, GKs included</div>
+        <div class="spec"><span class="lbl">Constraint: </span>Must play through both wide channels before shooting</div>
+        <div class="spec"><span class="lbl">Subs: </span>4 players rotate in every 5 min</div>
+      </div>
+      <p class="desc">The bi-rondal transfer theme moves onto the full pitch. Two teams of 8 (+ GK). The wide channels represent Zone A and Zone B from the rondo — teams must use both touchline channels before shooting. This forces the same field-switch habit practiced in Phase 3 into a goal-to-goal context. Counter-press rule carries over: if a team loses possession in their own half, they must win it back before the other team crosses halfway.</p>
+
+      <div class="pw">
+        <div class="pw-cap">Diagram · 8v8 Phase of Play with Wide Channel Rule</div>
+        <!--
+          Landscape ¾-field pitch. Goals on LEFT and RIGHT short ends.
+          Wide channels run TOP and BOTTOM (touchlines).
+          viewBox 560 × 320.
+        -->
+        <svg class="pitch" viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="p4a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="rgba(255,255,255,0.7)"/></marker>
+            <marker id="p4g" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0 0,7 3.5,0 7" fill="#f5c518"/></marker>
+          </defs>
+
+          <!-- Field background -->
+          <rect width="560" height="320" fill="#2a6636"/>
+
+          <!-- Alternating stripe bands (horizontal) -->
+          <rect x="0"   y="0"   width="560" height="40"  fill="rgba(255,255,255,0.03)"/>
+          <rect x="0"   y="80"  width="560" height="40"  fill="rgba(255,255,255,0.03)"/>
+          <rect x="0"   y="160" width="560" height="40"  fill="rgba(255,255,255,0.03)"/>
+          <rect x="0"   y="240" width="560" height="40"  fill="rgba(255,255,255,0.03)"/>
+
+          <!-- Pitch outline -->
+          <rect x="30" y="20" width="500" height="280" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.8"/>
+
+          <!-- Halfway line (vertical) -->
+          <line x1="280" y1="20" x2="280" y2="300" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-dasharray="6,4"/>
+          <!-- Centre circle -->
+          <circle cx="280" cy="160" r="30" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <circle cx="280" cy="160" r="3" fill="rgba(255,255,255,0.3)"/>
+
+          <!-- Penalty areas (left and right) -->
+          <rect x="30"  y="95"  width="80" height="130" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+          <rect x="450" y="95"  width="80" height="130" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+          <!-- 6-yard boxes -->
+          <rect x="30"  y="130" width="28" height="60"  fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+          <rect x="502" y="130" width="28" height="60"  fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+          <!-- Goals (on short ends, left and right) -->
+          <rect x="18"  y="138" width="14" height="44" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.8"/>
+          <rect x="528" y="138" width="14" height="44" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.8"/>
+
+          <!-- ── WIDE CHANNELS (top and bottom touchlines) ── -->
+          <rect x="30" y="20"  width="500" height="52" fill="rgba(245,197,24,0.07)" stroke="rgba(245,197,24,0.35)" stroke-width="1" stroke-dasharray="5,3"/>
+          <rect x="30" y="248" width="500" height="52" fill="rgba(245,197,24,0.07)" stroke="rgba(245,197,24,0.35)" stroke-width="1" stroke-dasharray="5,3"/>
+          <text x="280" y="50"  text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="rgba(245,197,24,0.6)">WIDE CHANNEL</text>
+          <text x="280" y="275" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="rgba(245,197,24,0.6)">WIDE CHANNEL</text>
+
+          <!-- ── WHITE TEAM (attacking left → right) ── -->
+          <!-- GK -->
+          <circle cx="50"  cy="160" r="9" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="50"  y="164" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">GK</text>
+          <!-- Back line -->
+          <circle cx="110" cy="95"  r="9" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="110" y="99"  text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
+          <circle cx="110" cy="140" r="9" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="110" y="144" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
+          <circle cx="110" cy="182" r="9" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="110" y="186" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
+          <circle cx="110" cy="226" r="9" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="110" y="230" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
+          <!-- Midfield -->
+          <circle cx="210" cy="120" r="9" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="210" y="124" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
+          <circle cx="210" cy="160" r="9" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="210" y="164" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
+          <circle cx="210" cy="200" r="9" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="210" y="204" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
+          <!-- Forward -->
+          <circle cx="310" cy="160" r="9" fill="#d8d8d8" stroke="#fff" stroke-width="1.5"/>
+          <text x="310" y="164" text-anchor="middle" fill="#111" font-size="8" font-weight="bold" font-family="sans-serif">W</text>
+
+          <!-- ── ORANGE TEAM (defending, right side) ── -->
+          <!-- GK -->
+          <circle cx="510" cy="160" r="9" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="510" y="164" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">GK</text>
+          <!-- Back line -->
+          <circle cx="450" cy="95"  r="9" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="450" y="99"  text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">O</text>
+          <circle cx="450" cy="140" r="9" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="450" y="144" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">O</text>
+          <circle cx="450" cy="182" r="9" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="450" y="186" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">O</text>
+          <circle cx="450" cy="226" r="9" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="450" y="230" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">O</text>
+          <!-- Midfield -->
+          <circle cx="355" cy="120" r="9" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="355" y="124" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">O</text>
+          <circle cx="355" cy="160" r="9" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="355" y="164" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">O</text>
+          <circle cx="355" cy="200" r="9" fill="#d4620a" stroke="#fff" stroke-width="1.5"/>
+          <text x="355" y="204" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">O</text>
+
+          <!-- Ball at midfield -->
+          <circle cx="280" cy="160" r="6" fill="#fff" stroke="#aaa" stroke-width="1.2"/>
+
+          <!-- Transfer arrow: switch from bottom wide to top wide -->
+          <path d="M 210 200 C 215 270, 310 278, 355 240" fill="none" stroke="#f5c518" stroke-width="2" stroke-dasharray="7,4" marker-end="url(#p4g)"/>
+          <text x="290" y="296" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#f5c518">switch to wide channel</text>
+
+          <!-- ── LEGEND ── -->
+          <circle cx="32"  cy="312" r="5" fill="#d8d8d8" stroke="#fff" stroke-width="1"/>
+          <text x="41"  y="316" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">White</text>
+          <circle cx="100" cy="312" r="5" fill="#d4620a" stroke="#fff" stroke-width="1"/>
+          <text x="109" y="316" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">Orange</text>
+          <circle cx="175" cy="312" r="5" fill="#f5c518" stroke="#ccc" stroke-width="1"/>
+          <text x="184" y="316" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">Ball</text>
+          <rect   x="255" y="307" width="12" height="8" fill="rgba(245,197,24,0.2)" stroke="rgba(245,197,24,0.5)" stroke-width="1"/>
+          <text x="272" y="316" font-family="sans-serif" font-size="8" fill="rgba(245,197,24,0.7)">Wide channel (shoot only after using)</text>
+        </svg>
+      </div>
+
+      <div class="two-col">
+        <div class="box bx-coach">
+          <div class="bx-label">Coaching Points</div>
+          <ul>
+            <li>Wingers hold width — same as Zone A/B in the rondo, just on a bigger field</li>
+            <li>The transfer moment in the rondo = switching play to the far wide player here</li>
+            <li>On loss: 3-second counter-press. Same trigger, same response as Phase 3</li>
+            <li>GK starts sequences — distribute wide under pressure, don't play into a press</li>
+          </ul>
+        </div>
+        <div class="box bx-prog">
+          <div class="bx-label">Freeze Prompts (max 2)</div>
+          <ul>
+            <li><em>"Where is the free zone right now — left or right?"</em></li>
+            <li><em>"How many seconds since we lost it — did we press?"</em></li>
+            <li>Point out the connection to the rondo — <em>"This is the transfer. What did we do in the exercise?"</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PHASE 5: 9v9 ══ -->
+  <div class="phase">
+    <div class="ph-head">
+      <div class="ph-n">5</div>
+      <div class="ph-title">
+        <h3>9v9 Free Game</h3>
+        <div class="sub">Application · Compete · Express</div>
+      </div>
+      <div class="ph-dur">20 MIN</div>
+    </div>
+    <div class="ph-body">
+      <div class="specs">
+        <div class="spec"><span class="lbl">Format: </span>9v9 inc. GKs</div>
+        <div class="spec"><span class="lbl">Field: </span>Full or ¾ field</div>
+        <div class="spec"><span class="lbl">Constraint: </span>None — free play</div>
+        <div class="spec"><span class="lbl">Duration: </span>2 × 8 min + 4 min end</div>
+        <div class="spec"><span class="lbl">Subs: </span>Roll-on, all 20 active</div>
+      </div>
+      <p class="desc">No constraint. Let them play. After two phases of structured work, this is where the habits show up naturally — or don't. Keep stoppages to one per half maximum. Watch for the bi-rondal habits: field-switching, counter-press urgency, and supporting the ball carrier with two options. At the end, bring the group together and ask: <em>"Where did you see the transfer game show up today?"</em></p>
+      <div class="tovo-call">
+        <div class="tc-lbl">TOVO</div>
+        <p>The free game is how TOVO closes. <strong>The constraint trained the behavior; the free game reveals whether it's internalized.</strong> Don't over-coach. The two-question debrief at the end is more valuable than ten freezes during the game.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- EQUIPMENT -->
+  <div class="equip">
+    <div class="eq-lbl">Equipment</div>
+    <div class="eq-tags">
+      <span class="eq-tag">12+ Balls</span>
+      <span class="eq-tag">30+ Cones / Discs</span>
+      <span class="eq-tag">3 Sets Bibs (White · Blue · Orange)</span>
+      <span class="eq-tag">2 Full-Size Goals</span>
+      <span class="eq-tag">2 Portable Goals (Phase 4)</span>
+      <span class="eq-tag">Water Jugs</span>
+    </div>
+  </div>
+
+  <!-- COACH NOTE -->
+  <div class="coach-note">
+    <div class="cn-lbl">Coach's Note — Session 3 Intent</div>
+    <p>This session is the first time your players will feel all four phases of the game demanding a simultaneous response. The bi-rondal is cognitively hard — <strong>expect the first 5 minutes to be messy</strong>. Walk it before you run it. The middle zone is where most breakdowns happen: Blue's two middle players must be coached on their split positions before the round starts. The session's single connective thread is the transfer — from the rondo's zone switch to the phase of play's wide channel to the free game's natural field-switch moments. Close with the group question and let them identify the thread themselves.</p>
+  </div>
+
+</main>
+</body>
+</html>
