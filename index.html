@@ -715,7 +715,7 @@
       theme: 'First Touch · Connection · Identity',
       duration: 75,
       players: 20,
-      url: '',
+      url: 'https://twade-hue.github.io/Arrows-Sessions/arrows-session-1.html',
       notes: 'Relationship-building session. Rondo arrival, two-line technical warmup, 6v4 possession, 7v7 SSG.',
       created: Date.now() - 86400000 * 2
     },
@@ -727,9 +727,21 @@
       theme: 'Scanning · 8v2 Rondo · Heading · Pos. Play',
       duration: 80,
       players: 20,
-      url: '',
+      url: 'https://twade-hue.github.io/Arrows-Sessions/arrows-session-2.html',
       notes: 'Features Rondo 08 of 24 (Play What You See). Juggling warmup, heading technical block, 7v5 target possession, 9v9 SSG.',
-      created: Date.now() - 86400000
+      created: Date.now() - 86400000 * 1
+    },
+    {
+      id: 's3',
+      title: 'Session 3 — All Four Phases',
+      type: 'tovo',
+      level: 'Varsity',
+      theme: 'Bi-Rondal Transfer Game · Counter Press',
+      duration: 85,
+      players: 20,
+      url: 'https://twade-hue.github.io/Arrows-Sessions/arrows-session-3.html',
+      notes: 'Bi-Rondal 4v4+4 transfer game. All four TOVO game phases in one exercise. Juggling warmup, 5v2 bridge rondo, 8v8 phase of play, 9v9 free game.',
+      created: Date.now()
     }
   ];
 
@@ -738,11 +750,16 @@
   let activeFilter = 'all';
   let editingId = null;
 
-  // ── Load from storage
+  // ── Load from storage — seed sessions always present with correct URLs
   function load() {
     try {
       const raw = localStorage.getItem(STORE_KEY);
-      sessions = raw ? JSON.parse(raw) : [...SEED];
+      const saved = raw ? JSON.parse(raw) : [];
+      // Merge: seed sessions always win on id match (keeps URLs fresh),
+      // then append any user-added sessions that aren't in the seed.
+      const seedIds = new Set(SEED.map(s => s.id));
+      const userAdded = saved.filter(s => !seedIds.has(s.id));
+      sessions = [...SEED, ...userAdded];
     } catch(e) {
       sessions = [...SEED];
     }
